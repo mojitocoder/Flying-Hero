@@ -490,6 +490,7 @@
 				04211B451C2BED4900241D96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04211B461C2BED4900241D96 /* Build configuration list for PBXNativeTarget "Flying HeroTests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +499,7 @@
 				04211B481C2BED4900241D96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04211B491C2BED4900241D96 /* Build configuration list for PBXNativeTarget "Flying HeroUITests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +508,7 @@
 				04211B4B1C2BED4900241D96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
