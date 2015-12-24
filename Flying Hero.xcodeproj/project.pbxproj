@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		04211B1B1C2BED4900241D96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04211B1A1C2BED4900241D96 /* AppDelegate.swift */; };
-		04211B1D1C2BED4900241D96 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04211B1C1C2BED4900241D96 /* GameScene.sks */; };
 		04211B1F1C2BED4900241D96 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04211B1E1C2BED4900241D96 /* GameScene.swift */; };
 		04211B211C2BED4900241D96 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04211B201C2BED4900241D96 /* GameViewController.swift */; };
 		04211B241C2BED4900241D96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04211B221C2BED4900241D96 /* Main.storyboard */; };
@@ -38,7 +37,6 @@
 /* Begin PBXFileReference section */
 		04211B171C2BED4900241D96 /* Flying Hero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flying Hero.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04211B1A1C2BED4900241D96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		04211B1C1C2BED4900241D96 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		04211B1E1C2BED4900241D96 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		04211B201C2BED4900241D96 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		04211B231C2BED4900241D96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				04211B1A1C2BED4900241D96 /* AppDelegate.swift */,
-				04211B1C1C2BED4900241D96 /* GameScene.sks */,
 				04211B1E1C2BED4900241D96 /* GameScene.swift */,
 				04211B201C2BED4900241D96 /* GameViewController.swift */,
 				04211B221C2BED4900241D96 /* Main.storyboard */,
@@ -235,7 +232,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04211B1D1C2BED4900241D96 /* GameScene.sks in Resources */,
 				04211B291C2BED4900241D96 /* LaunchScreen.storyboard in Resources */,
 				04211B261C2BED4900241D96 /* Assets.xcassets in Resources */,
 				04211B241C2BED4900241D96 /* Main.storyboard in Resources */,
