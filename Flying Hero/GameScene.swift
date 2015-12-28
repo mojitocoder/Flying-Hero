@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -22,6 +23,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let PowerUpNodeName: String = "PowerUpNode"
     
+    let coreMotionManager = CMMotionManager()
+    var xAxisAcceleration: CGFloat = 0.0
     
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
@@ -97,6 +100,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //use the first user's touch to start the game
         if !playerNode!.physicsBody!.dynamic {
             playerNode!.physicsBody!.dynamic = true;
+            
+            self.coreMotionManager.accelerometerUpdateInterval = 0.3 //refresh rate = 0.3 second
+            self.coreMotionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: {
+                
+                (data, error) in
+                
+                if let _ = error {
+                    print("Error with Accelerometer")
+                }
+                else {
+                    self.xAxisAcceleration = CGFloat(data!.acceleration.x)
+                }
+            })
+            
+
+        
         }
         
         //print("Touch")
@@ -113,5 +132,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             backgroundNode!.position = CGPointMake(backgroundNode!.position.x, -(playerNode!.position.y - ScrollThreshold)/8)
             foregroundNode!.position = CGPointMake(foregroundNode!.position.x, -(playerNode!.position.y - ScrollThreshold))
         }
+    }
+    
+    override func didSimulatePhysics() {
+        
+        //update velocity of the player
+        // steer left-right using the accelerometer
+        self.playerNode!.physicsBody!.velocity = CGVectorMake(self.xAxisAcceleration * 380, self.playerNode!.physicsBody!.velocity.dy)
+        
+        if playerNode!.position.x < -(playerNode!.size.width / 2) {
+            playerNode!.position = CGPointMake(size.width - playerNode!.size.width / 2, playerNode!.position.y)
+        }
+        else if self.playerNode!.position.x > self.size.width {
+            playerNode!.position = CGPointMake(playerNode!.size.width / 2, playerNode!.position.y)
+        }
+    }
+    
+    deinit {
+        self.coreMotionManager.stopAccelerometerUpdates()
     }
 }
