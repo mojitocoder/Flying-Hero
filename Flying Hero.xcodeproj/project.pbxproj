@@ -16,6 +16,8 @@
 		04211B341C2BED4900241D96 /* Flying_HeroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04211B331C2BED4900241D96 /* Flying_HeroTests.swift */; };
 		04211B3F1C2BED4900241D96 /* Flying_HeroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04211B3E1C2BED4900241D96 /* Flying_HeroUITests.swift */; };
 		04412E7E1C333BE800F7855A /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 04412E7D1C333BE800F7855A /* sprites.atlas */; };
+		04412E811C333D5900F7855A /* EngineExhaust.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04412E7F1C333D5900F7855A /* EngineExhaust.sks */; };
+		04412E821C333D5900F7855A /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 04412E801C333D5900F7855A /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		04211B3E1C2BED4900241D96 /* Flying_HeroUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flying_HeroUITests.swift; sourceTree = "<group>"; };
 		04211B401C2BED4900241D96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04412E7D1C333BE800F7855A /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		04412E7F1C333D5900F7855A /* EngineExhaust.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EngineExhaust.sks; sourceTree = "<group>"; };
+		04412E801C333D5900F7855A /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 				04412E7D1C333BE800F7855A /* sprites.atlas */,
 				04211B1A1C2BED4900241D96 /* AppDelegate.swift */,
 				04211B1E1C2BED4900241D96 /* GameScene.swift */,
+				04412E7F1C333D5900F7855A /* EngineExhaust.sks */,
+				04412E801C333D5900F7855A /* spark.png */,
 				04211B201C2BED4900241D96 /* GameViewController.swift */,
 				04211B221C2BED4900241D96 /* Main.storyboard */,
 				04211B251C2BED4900241D96 /* Assets.xcassets */,
@@ -236,7 +242,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				04211B291C2BED4900241D96 /* LaunchScreen.storyboard in Resources */,
+				04412E821C333D5900F7855A /* spark.png in Resources */,
 				04211B261C2BED4900241D96 /* Assets.xcassets in Resources */,
+				04412E811C333D5900F7855A /* EngineExhaust.sks in Resources */,
 				04412E7E1C333BE800F7855A /* sprites.atlas in Resources */,
 				04211B241C2BED4900241D96 /* Main.storyboard in Resources */,
 			);

@@ -29,6 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let coreMotionManager = CMMotionManager()
     var xAxisAcceleration: CGFloat = 0.0
     
+    var engineExhaust: SKEmitterNode?
+    var exhaustTimer : NSTimer?
+    
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
     }
@@ -54,6 +57,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         foregroundNode = SKSpriteNode()
         addChild(foregroundNode!)
         
+
+        
         //add player node
         playerNode = SKSpriteNode(imageNamed: "Player")
         playerNode!.physicsBody = SKPhysicsBody(circleOfRadius: playerNode!.size.width / 2)
@@ -66,11 +71,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode!.physicsBody!.categoryBitMask = CollisionCategoryPlayer
         playerNode!.physicsBody!.contactTestBitMask = CollisionCategoryPowerUpOrbs | CollisionCategoryBlackHoles
         playerNode!.physicsBody!.collisionBitMask = 0
-        
+
         foregroundNode!.addChild(playerNode!)
         
         addOrbsToForeground()
         addBlackHolesToForeground()
+
+        //engine exhaust
+        let engineExhaustPath = NSBundle.mainBundle().pathForResource("EngineExhaust", ofType: "sks")
+        engineExhaust = NSKeyedUnarchiver.unarchiveObjectWithFile(engineExhaustPath!) as? SKEmitterNode
+        engineExhaust!.position = CGPointMake(0.0, -(playerNode!.size.height / 2))
+        engineExhaust!.hidden = false
+        playerNode!.addChild(engineExhaust!)
         
         //debug
         print("Size of the screen is \(size.width) x \(size.height)")
@@ -159,18 +171,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.xAxisAcceleration = CGFloat(data!.acceleration.x)
                 }
             })
-            
-
-        
         }
         
         //print("Touch")
         if ImpulseCount > 0 {
             playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, 30.0))
             ImpulseCount--
+                    
+            //engineExhaust!.hidden = true
+            
+            //NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "hideEngineExhaust", userInfo: nil, repeats: false)
         }
     }
 
+    func hideEngineExhaust(timer: NSTimer!) {
+            if !engineExhaust!.hidden {
+                engineExhaust!.hidden = true
+            }
+    }
     
     override func update(currentTime: NSTimeInterval) {
         if playerNode!.position.y >= ScrollThreshold {
