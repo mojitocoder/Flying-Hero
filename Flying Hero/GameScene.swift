@@ -16,12 +16,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var foregroundNode: SKSpriteNode?
     var orbNode: SKSpriteNode?
     
-    var ImpulseCount: Int = 5
+    var ImpulseCount: Int = 10
     
     let CollisionCategoryPlayer: UInt32 = 0x1 << 1
     let CollisionCategoryPowerUpOrbs: UInt32 = 0x1 << 2
+    let CollisionCategoryBlackHoles: UInt32 = 0x1 << 3
     
     let PowerUpNodeName: String = "PowerUpNode"
+    let BlackHoleNodeName: String = "BlackHoleNode"
+    let ScrollThreshold: CGFloat = 360.0
     
     let coreMotionManager = CMMotionManager()
     var xAxisAcceleration: CGFloat = 0.0
@@ -61,15 +64,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerNode!.physicsBody!.linearDamping = 1.0
         playerNode!.physicsBody!.allowsRotation = false
         playerNode!.physicsBody!.categoryBitMask = CollisionCategoryPlayer
-        playerNode!.physicsBody!.contactTestBitMask = CollisionCategoryPowerUpOrbs
+        playerNode!.physicsBody!.contactTestBitMask = CollisionCategoryPowerUpOrbs | CollisionCategoryBlackHoles
         playerNode!.physicsBody!.collisionBitMask = 0
         
         foregroundNode!.addChild(playerNode!)
         
+        addOrbsToForeground()
+        addBlackHolesToForeground()
+        
+        //debug
+        print("Size of the screen is \(size.width) x \(size.height)")
+        print("Size of the background image is \(backgroundNode!.size.width) x \(backgroundNode!.size.height)")
+    }
+    
+    func addOrbsToForeground() {
         //add some orb nodes
         for i in 0...19 {
             let orb = SKSpriteNode(imageNamed: "PowerUp")
-            orb.position = CGPointMake(size.width / 2, size.height / 2 + CGFloat(i * 150))
+            orb.position = CGPointMake((size.width / 2 + CGFloat(i) * 100.0) % size.width, size.height / 2 + CGFloat(i * 300))
             orb.physicsBody = SKPhysicsBody(circleOfRadius: orb.size.width / 2)
             orb.physicsBody!.dynamic = false
             orb.physicsBody!.categoryBitMask = CollisionCategoryPowerUpOrbs
@@ -78,10 +90,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             foregroundNode!.addChild(orb)
         }
+    }
+    
+    func addBlackHolesToForeground() {
         
-        //debug
-        print("Size of the screen is \(size.width) x \(size.height)")
-        print("Size of the background image is \(backgroundNode!.size.width) x \(backgroundNode!.size.height)")
+        let moveLeftAction = SKAction.moveToX(0.0, duration: 6.0)
+        let moveRightAction = SKAction.moveToX(size.width, duration: 6.0)
+        let actionSequence =  SKAction.sequence([moveLeftAction, moveRightAction])
+        let moveAction = SKAction.repeatActionForever(actionSequence)
+        
+        for i in 1...10 {
+            let blackHole = SKSpriteNode(imageNamed: "BlackHole0")
+            blackHole.position = CGPointMake(size.width - 100, 600.0 * CGFloat(i))
+            blackHole.physicsBody = SKPhysicsBody(circleOfRadius: blackHole.size.width / 2)
+            blackHole.physicsBody!.dynamic = false
+            blackHole.physicsBody!.categoryBitMask = CollisionCategoryBlackHoles
+            blackHole.physicsBody!.collisionBitMask = 0
+            blackHole.name = BlackHoleNodeName
+            
+            blackHole.runAction(moveAction)
+            foregroundNode!.addChild(blackHole)
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -89,9 +118,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeB = contact.bodyB.node!
         print("Collide, nodeB = \(nodeB.name)")
 
-        if nodeB.name == PowerUpNodeName {
+        if nodeB.name == PowerUpNodeName { //one more point
             nodeB.removeFromParent()
             ImpulseCount++
+        }
+        else if nodeB.name == BlackHoleNodeName { //die
+            playerNode!.physicsBody!.contactTestBitMask = 0
+            ImpulseCount = 0
         }
     }
     
@@ -120,12 +153,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //print("Touch")
         if ImpulseCount > 0 {
-            playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, 20.0))
+            playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, 30.0))
             ImpulseCount--
         }
     }
-    
-    let ScrollThreshold: CGFloat = 360.0
+
     
     override func update(currentTime: NSTimeInterval) {
         if playerNode!.position.y >= ScrollThreshold {
