@@ -81,7 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let engineExhaustPath = NSBundle.mainBundle().pathForResource("EngineExhaust", ofType: "sks")
         engineExhaust = NSKeyedUnarchiver.unarchiveObjectWithFile(engineExhaustPath!) as? SKEmitterNode
         engineExhaust!.position = CGPointMake(0.0, -(playerNode!.size.height / 2))
-        engineExhaust!.hidden = false
+        engineExhaust!.hidden = true
         playerNode!.addChild(engineExhaust!)
         
         //debug
@@ -178,9 +178,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, 30.0))
             ImpulseCount--
                     
-            //engineExhaust!.hidden = true
+            engineExhaust!.hidden = false
             
-            //NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "hideEngineExhaust", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "hideEngineExhaust:", userInfo: nil, repeats: false)
         }
     }
 
