@@ -135,6 +135,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if nodeB.name == BlackHoleNodeName { //die
             playerNode!.physicsBody!.contactTestBitMask = 0
             ImpulseCount = 0
+            
+            let colouriseAction = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 1.0, duration: 1)
+            playerNode!.runAction(colouriseAction)
         }
     }
     
