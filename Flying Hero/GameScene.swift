@@ -93,6 +93,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func addBlackHolesToForeground() {
+        let textureAtlas = SKTextureAtlas(named: "sprites.atlas")
+        let frame0 = textureAtlas.textureNamed("BlackHole0")
+        let frame1 = textureAtlas.textureNamed("BlackHole1")
+        let frame2 = textureAtlas.textureNamed("BlackHole2")
+        let frame3 = textureAtlas.textureNamed("BlackHole3")
+        let frame4 = textureAtlas.textureNamed("BlackHole4")
+        let blackHoleTextures = [frame0, frame1, frame2, frame3, frame4]
+        let animateAction = SKAction.animateWithTextures(blackHoleTextures, timePerFrame: 0.2)
+        let rotateAction = SKAction.repeatActionForever(animateAction)
         
         let moveLeftAction = SKAction.moveToX(0.0, duration: 6.0)
         let moveRightAction = SKAction.moveToX(size.width, duration: 6.0)
@@ -109,6 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             blackHole.name = BlackHoleNodeName
             
             blackHole.runAction(moveAction)
+            blackHole.runAction(rotateAction)
             foregroundNode!.addChild(blackHole)
         }
     }
