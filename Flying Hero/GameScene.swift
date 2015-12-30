@@ -32,6 +32,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var engineExhaust: SKEmitterNode?
     var exhaustTimer : NSTimer?
     
+    let orbPopAction = SKAction.playSoundFileNamed("orb_pop.wav", waitForCompletion: false)
+    
+    var score: Int32 = 0
+    let scoreTextNode = SKLabelNode(fontNamed: "Copperplate")
+    let impulseTextNode = SKLabelNode(fontNamed: "Copperplate")
+    
     required init?(coder aDecoder: NSCoder){
         super.init(coder: aDecoder)
     }
@@ -83,6 +89,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         engineExhaust!.position = CGPointMake(0.0, -(playerNode!.size.height / 2))
         engineExhaust!.hidden = true
         playerNode!.addChild(engineExhaust!)
+        
+        //score and impulse count
+        scoreTextNode.text = "SCORE : \(score)"
+        scoreTextNode.fontSize = 20
+        scoreTextNode.fontColor = SKColor.whiteColor()
+        scoreTextNode.position =
+            CGPointMake(size.width - 10, size.height - 20)
+        scoreTextNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
+        
+        addChild(scoreTextNode)
+        
+        impulseTextNode.text = "IMPULSES : \(ImpulseCount)"
+        impulseTextNode.fontSize = 20
+        impulseTextNode.fontColor = SKColor.whiteColor()
+        impulseTextNode.position = CGPointMake(10.0, size.height - 20)
+        impulseTextNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+        
+        addChild(impulseTextNode)
         
         //debug
         print("Size of the screen is \(size.width) x \(size.height)")
@@ -141,8 +165,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Collide, nodeB = \(nodeB.name)")
 
         if nodeB.name == PowerUpNodeName { //one more point
+            
+            self.runAction(orbPopAction)
             nodeB.removeFromParent()
             ImpulseCount++
+
+            self.impulseTextNode.text = "IMPULSES : \(self.ImpulseCount)"
+            self.score++
+            self.scoreTextNode.text = "SCORE : \(self.score)"
         }
         else if nodeB.name == BlackHoleNodeName { //die
             playerNode!.physicsBody!.contactTestBitMask = 0
